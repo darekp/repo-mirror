@@ -36,5 +36,8 @@ for name,projects in manifest._projects.items():
         if remoteName not in open(moduleDir + "/config").read():
             cmd = "cd %s && git remote add %s %s" % (moduleDir, remoteName, remoteUrl)
             ret = os.system(cmd)
-            print(cmd)
             assert(ret==0)
+            if len(sys.argv)>=2 and sys.argv[1]=="--fetch":
+                cmd = "cd %s && git fetch --all" % (moduleDir)
+                ret = os.system(cmd)
+                assert(ret==0)
